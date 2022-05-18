@@ -1,0 +1,49 @@
+<html>
+ <head>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <style>
+      img { display: block;
+            margin-left: auto;
+            margin-right: auto;
+           }
+      h1 {text-align: center;}
+    </style>
+  </head>
+  <body>
+     <img id="bg" src="{{ url_for('video_feed') }}" style="width:88%;">
+	<div class='btn-grid'>
+		<button id="left">left</button>
+		<button id="right">right</button>
+		<button id="forward">forward</button>
+		<button id="backward">backward</button>
+	</div>
+
+  <script>
+
+	 const serverurl = ``;
+
+	 const forwardBtn = document.getElementById('forward'); 	
+	 const backwardBtn = document.getElementById('backward'); 	
+	 const leftBtn = document.getElementById('left'); 	
+	 const rightBtn = document.getElementById('right'); 	
+
+	  forwardBtn.addEventListener('click' , ()=>{
+			  fetch(serverurl.concat('/forward')).then(()=>console.log('moved forward'));
+		    });
+
+       	rightBtn.addEventListener('click' , ()=>{
+			  fetch(serverurl.concat('/right')).then(()=>console.log('moved right'));
+		  });
+
+       	backwardBtn.addEventListener('click' , ()=>{
+			  fetch(serverurl.concat('/backward')).then(()=>console.log('moved backward'));
+		  });
+
+       	leftBtn.addEventListener('click' , ()=>{
+			  fetch(serverurl.concat('/left')).then(()=>console.log('moved left'));
+		  });
+  
+
+  </script>
+  </body>
+</html>
