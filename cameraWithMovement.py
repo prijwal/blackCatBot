@@ -1,9 +1,10 @@
 import cv2
+import os
 import numpy
 import time as time
 import RPi.GPIO as GPIO
 
-from flask import Flask, render_template, Response, stream_with_context, request
+from flask import Flask, render_template, Response, stream_with_context, request, render_template_string
 
 video = cv2.VideoCapture(0)
 
@@ -23,11 +24,16 @@ def video_stream():
 
 @app.route('/camera')
 def camera():
-   return render_template('camera.html')
+    html_template_string = ''
+
+    with open('/home/pi/blackCatBot/templates/camera.html' , 'r') as f:
+        html_template_string = f.read()
+    
+    return render_template_string(html_template_string);
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(video_stream(), mimetype='multipart/x-mixed-replace;  boundary=frame')
+    return Response(video_stream(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 GPIO.setmode(GPIO.BCM)
